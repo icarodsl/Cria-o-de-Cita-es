@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -47,6 +48,10 @@
         .citation a:hover {
             text-decoration: underline;
         }
+        /* Ajuste do espaçamento após a remoção do h1 */
+        .w-full.max-w-4xl {
+            padding-top: 1rem;
+        }
     </style>
 </head>
 <body class="p-4 sm:p-8 flex items-start justify-center min-h-screen">
@@ -54,12 +59,10 @@
     <!-- Container Principal Flexível -->
     <div class="w-full max-w-4xl">
 
-        <h1 class="text-3xl font-extrabold text-center text-gray-800 mb-6">
-            🛠️ Gemini: Ferramenta de Criação e Conhecimento
-        </h1>
+        <!-- O TÍTULO PRINCIPAL FOI REMOVIDO AQUI -->
 
         <!-- Controle de Abas -->
-        <div class="flex border-b border-gray-200 mb-6">
+        <div class="flex border-b border-gray-200 mb-6 mt-4">
             <button id="tab-quote" onclick="selectTab('quote')" 
                     class="tab-button active flex-1 py-3 px-4 text-sm sm:text-lg font-semibold rounded-t-xl transition duration-150 border-b-4 border-transparent hover:border-blue-300">
                 ✨ Gerador de Citações (Amor e Carinho)
