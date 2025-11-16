@@ -26,98 +26,132 @@
         .copy-button:active {
             transform: scale(0.98);
         }
+        /* Estilos para o item do histórico */
+        .history-item {
+            cursor: pointer;
+            transition: background-color 0.15s;
+        }
+        .history-item:hover {
+            background-color: #f0f4f8;
+        }
     </style>
 </head>
-<body class="p-4 sm:p-8 flex items-center justify-center min-h-screen">
+<body class="p-4 sm:p-8 flex items-start justify-center min-h-screen">
 
-    <div class="w-full max-w-xl bg-white p-6 sm:p-8 rounded-2xl shadow-2xl border border-gray-100">
-        
-        <h1 class="text-3xl font-extrabold text-center text-gray-800 mb-2">
-            ✨ Gerador de Citações Personalizadas
-        </h1>
-        <p class="text-center text-gray-500 mb-6">
-            Defina o tema, o estilo e o toque visual da sua inspiração.
-        </p>
+    <!-- Container Principal Flexível -->
+    <div class="w-full max-w-4xl flex flex-col lg:flex-row gap-6">
 
-        <!-- Controles de Personalização -->
-        <div class="space-y-4 mb-6 p-4 bg-blue-50 rounded-xl border border-blue-200">
-            <h2 class="text-xl font-semibold text-blue-700 mb-3">Controles Criativos</h2>
+        <!-- Coluna Esquerda: Gerador (Ocupa mais espaço) -->
+        <div class="lg:w-3/5 bg-white p-6 sm:p-8 rounded-2xl shadow-2xl border border-gray-100">
             
-            <!-- Linha de Inputs Flexível para Mobile/Desktop -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <!-- Assunto -->
-                <div>
-                    <label for="topic-input" class="block text-sm font-medium text-gray-700 mb-1">Assunto da Citação:</label>
-                    <input type="text" id="topic-input" placeholder="Ex: Inovação, Amizade, O futuro..." value="Amor expresso em voz alta"
-                           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150 shadow-sm">
+            <h1 class="text-3xl font-extrabold text-center text-gray-800 mb-2">
+                ✨ Gerador de Citações Personalizadas
+            </h1>
+            <p class="text-center text-gray-500 mb-6">
+                Defina o tema, o estilo e o toque visual da sua inspiração para Suzane.
+            </p>
+
+            <!-- Controles de Personalização -->
+            <div class="space-y-4 mb-6 p-4 bg-blue-50 rounded-xl border border-blue-200">
+                <h2 class="text-xl font-semibold text-blue-700 mb-3">Controles Criativos</h2>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- Assunto -->
+                    <div>
+                        <label for="topic-input" class="block text-sm font-medium text-gray-700 mb-1">Assunto da Citação:</label>
+                        <input type="text" id="topic-input" placeholder="Ex: Inovação, Amizade, O futuro..." value="Amor expresso em voz alta"
+                               class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150 shadow-sm">
+                    </div>
+
+                    <!-- Tom/Estilo -->
+                    <div>
+                        <label for="style-input" class="block text-sm font-medium text-gray-700 mb-1">Tom/Estilo:</label>
+                        <select id="style-input"
+                                class="w-full p-3 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500 transition duration-150 shadow-sm">
+                            <option value="Poético e Profundo">Poético e Profundo (Padrão)</option>
+                            <option value="Direto e Motivacional">Direto e Motivacional</option>
+                            <option value="Cômico e Leve">Cômico e Leve</option>
+                            <option value="Filosófico e Reflexivo">Filosófico e Reflexivo</option>
+                        </select>
+                    </div>
                 </div>
 
-                <!-- Tom/Estilo -->
+                <!-- Seletor de Ícone -->
                 <div>
-                    <label for="style-input" class="block text-sm font-medium text-gray-700 mb-1">Tom/Estilo:</label>
-                    <select id="style-input"
-                            class="w-full p-3 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500 transition duration-150 shadow-sm">
-                        <option value="Poético e Profundo">Poético e Profundo (Padrão)</option>
-                        <option value="Direto e Motivacional">Direto e Motivacional</option>
-                        <option value="Cômico e Leve">Cômico e Leve</option>
-                        <option value="Filosófico e Reflexivo">Filosófico e Reflexivo</option>
+                    <label for="icon-input" class="block text-sm font-medium text-gray-700 mb-1">Ícone Decorativo:</label>
+                    <select id="icon-input"
+                            class="w-full p-3 border border-gray-300 rounded-lg bg-white text-xl focus:ring-blue-500 focus:border-blue-500 transition duration-150 shadow-sm">
+                        <option value="💡">💡 (Ideia)</option>
+                        <option value="❤️">❤️ (Coração)</option>
+                        <option value="✨" selected>✨ (Brilho)</option>
+                        <option value="🌱">🌱 (Crescimento)</option>
+                        <option value="🚀">🚀 (Inovação)</option>
+                        <option value="🧠">🧠 (Mente)</option>
+                        <option value="🕊️">🕊️ (Paz)</option>
                     </select>
                 </div>
             </div>
-
-            <!-- Seletor de Ícone -->
-            <div>
-                <label for="icon-input" class="block text-sm font-medium text-gray-700 mb-1">Ícone Decorativo:</label>
-                <select id="icon-input"
-                        class="w-full p-3 border border-gray-300 rounded-lg bg-white text-xl focus:ring-blue-500 focus:border-blue-500 transition duration-150 shadow-sm">
-                    <option value="💡">💡 (Ideia)</option>
-                    <option value="❤️">❤️ (Coração)</option>
-                    <option value="✨">✨ (Brilho)</option>
-                    <option value="🌱">🌱 (Crescimento)</option>
-                    <option value="🚀">🚀 (Inovação)</option>
-                    <option value="🧠">🧠 (Mente)</option>
-                    <option value="🕊️">🕊️ (Paz)</option>
-                </select>
+            
+            <!-- Contêiner de Exibição da Citação -->
+            <div id="quote-container" class="quote-container bg-gray-50 p-6 rounded-xl border border-gray-200 mb-6 flex items-center justify-center text-center shadow-inner">
+                <p id="quote-text" class="quote-text text-xl italic text-gray-600 font-medium">
+                    Defina sua inspiração e clique em "Gerar Citação".
+                </p>
             </div>
+
+            <!-- Mensagem de Status (Carregamento / Erro) -->
+            <div class="min-h-[20px] mb-4 text-center">
+                <p id="status-message" class="text-blue-600 text-sm font-semibold"></p>
+            </div>
+
+            <!-- Botões de Ação -->
+            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                
+                <!-- Botão Gerar Nova Citação -->
+                <button id="generate-button" onclick="generateQuote()" 
+                        class="w-full py-3 px-4 bg-blue-600 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500/50 transition ease-in-out duration-150">
+                    Gerar Citação Personalizada
+                </button>
+                
+                <!-- Botão Copiar -->
+                <button id="copy-button" onclick="copyQuote()" disabled
+                        class="copy-button w-full py-3 px-4 bg-green-500 text-white font-semibold rounded-lg shadow-lg hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-500/50 transition ease-in-out duration-150 disabled:opacity-50 disabled:cursor-not-allowed">
+                    Copiar Citação
+                </button>
+            </div>
+            
+            <!-- Mensagem de Copiado (Aparece ao clicar em Copiar) -->
+            <p id="copy-message" class="mt-4 text-center text-sm font-semibold text-green-600 opacity-0 transition-opacity duration-300"></p>
+
         </div>
         
-        <!-- Contêiner de Exibição da Citação -->
-        <div id="quote-container" class="quote-container bg-gray-50 p-6 rounded-xl border border-gray-200 mb-6 flex items-center justify-center text-center shadow-inner">
-            <p id="quote-text" class="quote-text text-xl italic text-gray-600 font-medium">
-                Defina sua inspiração e clique em "Gerar Citação".
-            </p>
-        </div>
-
-        <!-- Mensagem de Status (Carregamento / Erro) -->
-        <div class="min-h-[20px] mb-4 text-center">
-            <p id="status-message" class="text-blue-600 text-sm font-semibold"></p>
-        </div>
-
-        <!-- Botões de Ação -->
-        <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-            
-            <!-- Botão Gerar Nova Citação -->
-            <button id="generate-button" onclick="generateQuote()" 
-                    class="w-full py-3 px-4 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500/50 transition ease-in-out duration-150">
-                Gerar Citação Personalizada
-            </button>
-            
-            <!-- Botão Copiar -->
-            <button id="copy-button" onclick="copyQuote()" disabled
-                    class="copy-button w-full py-3 px-4 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-500/50 transition ease-in-out duration-150 disabled:opacity-50 disabled:cursor-not-allowed">
-                Copiar Citação
+        <!-- Coluna Direita: Histórico (Ocupa menos espaço) -->
+        <div class="lg:w-2/5 bg-white p-6 sm:p-6 rounded-2xl shadow-2xl border border-gray-100">
+            <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                <span class="mr-2 text-xl">💾</span> Histórico de Citações Recentes
+            </h2>
+            <div id="history-list" class="space-y-3">
+                <p id="empty-history" class="text-gray-500 italic text-sm">Nenhuma citação salva ainda.</p>
+                <!-- Citações serão injetadas aqui -->
+            </div>
+            <button id="clear-history-button" onclick="clearHistory()"
+                    class="mt-4 w-full py-2 text-sm text-red-600 border border-red-300 rounded-lg hover:bg-red-50 transition duration-150">
+                Limpar Histórico
             </button>
         </div>
-        
-        <!-- Mensagem de Copiado (Aparece ao clicar em Copiar) -->
-        <p id="copy-message" class="mt-4 text-center text-sm font-semibold text-green-600 opacity-0 transition-opacity duration-300"></p>
 
     </div>
 
     <script type="module">
         // Variáveis globais para configuração da API
-        const apiKey = ""; 
+        // *** CHAVE API INSERIDA AQUI ***
+        // A chave fornecida pelo usuário está inserida abaixo para garantir o funcionamento local.
+        const apiKey = "AIzaSyCaSuwB8GrfLyuBz7t3k3nrUJL7SzCCme8"; 
         const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+
+        // Chave do localStorage para o histórico
+        const HISTORY_STORAGE_KEY = 'gemini_quote_history';
+        const MAX_HISTORY_ITEMS = 5;
 
         // Elementos do DOM
         const quoteTextElement = document.getElementById('quote-text');
@@ -125,12 +159,86 @@
         const generateButton = document.getElementById('generate-button');
         const copyButton = document.getElementById('copy-button');
         const copyMessageElement = document.getElementById('copy-message');
+        const historyListElement = document.getElementById('history-list');
+        const emptyHistoryMessage = document.getElementById('empty-history');
+        const clearHistoryButton = document.getElementById('clear-history-button');
         
         // Elementos de input
         const topicInput = document.getElementById('topic-input');
         const styleInput = document.getElementById('style-input');
-        const iconInput = document.getElementById('icon-input'); // Novo elemento de ícone
+        const iconInput = document.getElementById('icon-input'); 
 
+
+        // --- Funções de Histórico (localStorage) ---
+
+        // Carrega o histórico do localStorage
+        function loadHistory() {
+            try {
+                const historyJson = localStorage.getItem(HISTORY_STORAGE_KEY);
+                return historyJson ? JSON.parse(historyJson) : [];
+            } catch (e) {
+                console.error("Erro ao carregar histórico do localStorage:", e);
+                return [];
+            }
+        }
+
+        // Salva a nova citação no histórico
+        function saveQuoteToHistory(quoteWithIcon) {
+            const history = loadHistory();
+            
+            // Adiciona a nova citação ao topo do array
+            history.unshift(quoteWithIcon);
+            
+            // Limita o tamanho do histórico
+            const limitedHistory = history.slice(0, MAX_HISTORY_ITEMS);
+            
+            try {
+                localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(limitedHistory));
+                displayHistory(limitedHistory); // Atualiza a exibição imediatamente
+            } catch (e) {
+                console.error("Erro ao salvar histórico no localStorage:", e);
+            }
+        }
+        
+        // Exibe o histórico na UI
+        function displayHistory(history) {
+            historyListElement.innerHTML = ''; // Limpa a lista
+            
+            if (history.length === 0) {
+                emptyHistoryMessage.style.display = 'block';
+                clearHistoryButton.style.display = 'none';
+                return;
+            }
+
+            emptyHistoryMessage.style.display = 'none';
+            clearHistoryButton.style.display = 'block';
+
+            history.forEach((item, index) => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item p-3 rounded-lg border border-gray-200 text-sm text-gray-700 truncate';
+                historyItem.textContent = item;
+                historyItem.title = item; // Dica de ferramenta
+                
+                // Adiciona a funcionalidade de clique para copiar
+                historyItem.onclick = () => {
+                    copyTextToClipboard(item, true); // Copia o item
+                };
+
+                historyListElement.appendChild(historyItem);
+            });
+        }
+        
+        // Limpa todo o histórico
+        window.clearHistory = function() {
+            localStorage.removeItem(HISTORY_STORAGE_KEY);
+            displayHistory([]);
+            // Opcional: Limpar a citação principal
+            quoteTextElement.textContent = 'Defina sua inspiração e clique em "Gerar Citação".';
+            updateUI(false, 'Histórico limpo.');
+        }
+
+
+        // --- Funções de Utilidade (UI e API) ---
 
         // Função para atualizar o status da UI
         function updateUI(isLoading, message = '') {
@@ -138,11 +246,12 @@
             generateButton.textContent = isLoading ? 'Gerando...' : 'Gerar Citação Personalizada';
             statusMessageElement.textContent = message;
             
-            // Verifica se a citação não é o placeholder inicial ou uma mensagem de erro
             const isQuotePresent = quoteTextElement.textContent.trim() !== '' && 
                                    !quoteTextElement.textContent.includes('Defina sua inspiração') &&
-                                   !quoteTextElement.textContent.includes('Erro') &&
-                                   !quoteTextElement.textContent.includes('vazio');
+                                   !quoteTextElement.textContent.includes('ERRO') &&
+                                   !quoteTextElement.textContent.includes('vazio') &&
+                                   !quoteTextElement.textContent.includes('Chave API ausente') &&
+                                   !quoteTextElement.textContent.includes('bloqueada'); // Adiciona verificação para mensagem de bloqueio
             
             copyButton.disabled = isLoading || !isQuotePresent;
         }
@@ -165,6 +274,7 @@
                         throw new Error(`API error with status ${response.status}. Retrying...`);
                     } else {
                         const errorBody = await response.json();
+                        // Trata erros de formato JSON inválido que podem retornar status 400
                         throw new Error(`API failed: ${errorBody.error?.message || response.statusText}`);
                     }
                 } catch (error) {
@@ -177,11 +287,46 @@
             }
         }
 
+        // Função para copiar o texto para a área de transferência
+        function copyTextToClipboard(text, isHistory = false) {
+            const tempInput = document.createElement('textarea');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            
+            tempInput.select();
+            tempInput.setSelectionRange(0, 99999);
+            
+            try {
+                document.execCommand('copy');
+                
+                // Feedback visual para o usuário
+                copyMessageElement.textContent = isHistory ? '✅ Citação do histórico copiada!' : '✅ Copiado para a área de transferência!';
+                copyMessageElement.style.opacity = '1';
+
+                setTimeout(() => {
+                    copyMessageElement.style.opacity = '0';
+                }, 3000);
+
+            } catch (err) {
+                copyMessageElement.textContent = '❌ Falha ao copiar. Tente selecionar o texto manualmente.';
+                copyMessageElement.style.opacity = '1';
+                console.error('Erro ao copiar:', err);
+            }
+
+            document.body.removeChild(tempInput);
+        }
+
         // Função principal para gerar a citação
         window.generateQuote = async function() {
+            if (apiKey === "") {
+                quoteTextElement.textContent = 'ERRO DE CONFIGURAÇÃO: Insira sua Chave API no código para uso externo.';
+                updateUI(false, 'Chave API ausente.');
+                return;
+            }
+
             const topic = topicInput.value.trim();
             const style = styleInput.value;
-            const icon = iconInput.value; // Pega o ícone selecionado
+            const icon = iconInput.value; 
 
             if (!topic) {
                 updateUI(false, 'Por favor, insira um assunto para a citação.');
@@ -194,7 +339,8 @@
             copyMessageElement.style.opacity = '0';
 
             // 1. Cria a instrução do sistema
-            const systemPrompt = `Você é um mentor de vida e filosofia. Sua tarefa é criar uma citação inspiradora única e motivacional, com um toque ${style}. A citação deve ter no máximo duas frases. Formate a saída como um bloco de texto simples, sem aspas, nomes de autor ou qualquer introdução.`;
+            // Lembrete: O sistema de instrução mantém a personalização para Suzane
+            const systemPrompt = `Você é um mentor de vida e filosofia focado em criar citações de amor e carinho, pois a citação será usada para uma surpresa romântica para Suzane, que gosta de se sentir amada em voz alta. Sua tarefa é criar uma citação inspiradora única e motivacional, com um toque ${style}. A citação deve ter no máximo duas frases. Formate a saída como um bloco de texto simples, sem aspas, nomes de autor ou qualquer introdução.`;
             
             // 2. Cria a consulta do usuário baseada no input
             const userQuery = `Gere uma citação original sobre o assunto: "${topic}".`;
@@ -204,9 +350,10 @@
                 systemInstruction: {
                     parts: [{ text: systemPrompt }]
                 },
-                config: {
+                generationConfig: { 
                     temperature: 0.9,
-                    maxOutputTokens: 100
+                    // CORREÇÃO: Aumentado o limite de tokens de 512 para 1024 para garantir espaço suficiente para o processamento interno (thoughtsTokenCount) E a citação, resolvendo o problema recorrente de MAX_TOKENS.
+                    maxOutputTokens: 1024 // Limite aumentado para evitar que o modelo atinja o limite de tokens durante o processamento interno
                 }
             };
 
@@ -216,61 +363,63 @@
                 const generatedText = result.candidates?.[0]?.content?.parts?.[0]?.text;
                 
                 if (generatedText) {
-                    // Adiciona o ícone à frente do texto
-                    quoteTextElement.innerHTML = `<span class="text-3xl mr-2">${icon}</span> ${generatedText.trim()}`;
-                    updateUI(false, 'Citação gerada com sucesso!');
+                    const finalQuote = generatedText.trim();
+                    const quoteWithIcon = `${icon} ${finalQuote}`;
+                    
+                    // 3. Exibe a citação
+                    quoteTextElement.innerHTML = `<span class="text-3xl mr-2">${icon}</span> ${finalQuote}`;
+                    updateUI(false, 'Citação gerada com sucesso! Não se esqueça da Suzane!');
+                    
+                    // 4. Salva no histórico
+                    saveQuoteToHistory(quoteWithIcon);
+
                 } else {
-                    quoteTextElement.textContent = 'Erro ao processar a resposta do modelo.';
+                    // --- Tratamento aprimorado de erro de resposta vazia/bloqueada ---
+                    const candidate = result.candidates?.[0];
+                    const blockReason = candidate?.finishReason;
+                    const safetyRatings = candidate?.safetyRatings;
+
+                    console.error('Resposta da API sem texto. Objeto de resultado completo:', result);
+                    
+                    let errorMessage = 'Erro ao processar a resposta do modelo. Tente novamente.';
+                    if (blockReason === 'SAFETY') {
+                        errorMessage = '⚠️ A citação foi bloqueada pelo filtro de segurança da API. Por favor, tente um tema diferente.';
+                        console.warn('Bloqueado por segurança:', safetyRatings);
+                    } else if (blockReason === 'RECITATION') {
+                        errorMessage = '⚠️ O modelo detectou que a solicitação pode recitar conteúdo protegido. Por favor, reformule.';
+                    } else if (blockReason === 'MAX_TOKENS') { // Tratamento específico para o erro recorrente
+                        errorMessage = '⚠️ O modelo atingiu o limite de tokens e cortou a citação. O limite foi aumentado, mas tente um assunto mais conciso.';
+                    } else if (blockReason && blockReason !== 'STOP') {
+                        errorMessage = `⚠️ Resposta do modelo incompleta (Razão: ${blockReason}). Tente novamente.`;
+                    }
+                    
+                    quoteTextElement.textContent = errorMessage;
                     updateUI(false, 'Houve um erro.');
+                    // --- FIM Tratamento aprimorado ---
                 }
 
             } catch (error) {
-                quoteTextElement.textContent = 'Erro: Falha ao se comunicar com a API.';
-                updateUI(false, 'Verifique sua conexão ou tente novamente.');
+                quoteTextElement.textContent = 'ERRO: Falha ao se comunicar com a API ou erro de rede. Verifique o console.';
+                updateUI(false, 'Houve um erro grave.');
                 console.error('API Error:', error);
             }
         };
 
-        // Função para copiar a citação para a área de transferência
+        // Função para copiar a citação principal
         window.copyQuote = function() {
-            // Pega o texto completo (ícone + citação)
-            const icon = iconInput.value;
-            const rawQuoteText = quoteTextElement.textContent.replace(icon, '').trim(); // Remove o ícone para não copiar duas vezes (uma da UI e uma do valor do select)
+            // Pega o texto limpo da citação (sem a tag <span> do ícone)
+            const quoteElementWithIcon = quoteTextElement.textContent.trim();
             
-            // O texto que será copiado é o ícone + o texto puro da citação
-            const textToCopy = `${icon} ${rawQuoteText}`;
-
-            if (textToCopy && copyButton.disabled === false) {
-                const tempInput = document.createElement('textarea');
-                tempInput.value = textToCopy;
-                document.body.appendChild(tempInput);
-                
-                tempInput.select();
-                tempInput.setSelectionRange(0, 99999);
-                
-                try {
-                    document.execCommand('copy');
-                    
-                    copyMessageElement.textContent = '✅ Copiado para a área de transferência!';
-                    copyMessageElement.style.opacity = '1';
-
-                    setTimeout(() => {
-                        copyMessageElement.style.opacity = '0';
-                    }, 3000);
-
-                } catch (err) {
-                    copyMessageElement.textContent = '❌ Falha ao copiar. Tente selecionar o texto manualmente.';
-                    copyMessageElement.style.opacity = '1';
-                    console.error('Erro ao copiar:', err);
-                }
-
-                document.body.removeChild(tempInput);
+            if (quoteElementWithIcon && copyButton.disabled === false) {
+                copyTextToClipboard(quoteElementWithIcon);
             }
         };
 
         // Configuração inicial ao carregar a página
         window.onload = function() {
             updateUI(false, 'Pronto para gerar sua citação.');
+            // Carrega e exibe o histórico ao iniciar
+            displayHistory(loadHistory());
         };
     </script>
 </body>
