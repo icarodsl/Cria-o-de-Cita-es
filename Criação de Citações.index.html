@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Citações Inspiradoras (Gemini API)</title>
+    <!-- Carrega Tailwind CSS para estilização rápida e responsiva -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7fafc;
+        }
+        .quote-container {
+            min-height: 150px;
+        }
+        .quote-text {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            line-height: 1.6;
+        }
+        .copy-button {
+            transition: background-color 0.3s, transform 0.1s;
+        }
+        .copy-button:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8 flex items-center justify-center min-h-screen">
+
+    <div class="w-full max-w-xl bg-white p-6 sm:p-8 rounded-2xl shadow-2xl border border-gray-100">
+        
+        <h1 class="text-3xl font-extrabold text-center text-gray-800 mb-2">
+            ✨ Gerador de Citações Personalizadas
+        </h1>
+        <p class="text-center text-gray-500 mb-6">
+            Defina o tema, o estilo e o toque visual da sua inspiração.
+        </p>
+
+        <!-- Controles de Personalização -->
+        <div class="space-y-4 mb-6 p-4 bg-blue-50 rounded-xl border border-blue-200">
+            <h2 class="text-xl font-semibold text-blue-700 mb-3">Controles Criativos</h2>
+            
+            <!-- Linha de Inputs Flexível para Mobile/Desktop -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Assunto -->
+                <div>
+                    <label for="topic-input" class="block text-sm font-medium text-gray-700 mb-1">Assunto da Citação:</label>
+                    <input type="text" id="topic-input" placeholder="Ex: Inovação, Amizade, O futuro..." value="Amor expresso em voz alta"
+                           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150 shadow-sm">
+                </div>
+
+                <!-- Tom/Estilo -->
+                <div>
+                    <label for="style-input" class="block text-sm font-medium text-gray-700 mb-1">Tom/Estilo:</label>
+                    <select id="style-input"
+                            class="w-full p-3 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500 transition duration-150 shadow-sm">
+                        <option value="Poético e Profundo">Poético e Profundo (Padrão)</option>
+                        <option value="Direto e Motivacional">Direto e Motivacional</option>
+                        <option value="Cômico e Leve">Cômico e Leve</option>
+                        <option value="Filosófico e Reflexivo">Filosófico e Reflexivo</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Seletor de Ícone -->
+            <div>
+                <label for="icon-input" class="block text-sm font-medium text-gray-700 mb-1">Ícone Decorativo:</label>
+                <select id="icon-input"
+                        class="w-full p-3 border border-gray-300 rounded-lg bg-white text-xl focus:ring-blue-500 focus:border-blue-500 transition duration-150 shadow-sm">
+                    <option value="💡">💡 (Ideia)</option>
+                    <option value="❤️">❤️ (Coração)</option>
+                    <option value="✨">✨ (Brilho)</option>
+                    <option value="🌱">🌱 (Crescimento)</option>
+                    <option value="🚀">🚀 (Inovação)</option>
+                    <option value="🧠">🧠 (Mente)</option>
+                    <option value="🕊️">🕊️ (Paz)</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- Contêiner de Exibição da Citação -->
+        <div id="quote-container" class="quote-container bg-gray-50 p-6 rounded-xl border border-gray-200 mb-6 flex items-center justify-center text-center shadow-inner">
+            <p id="quote-text" class="quote-text text-xl italic text-gray-600 font-medium">
+                Defina sua inspiração e clique em "Gerar Citação".
+            </p>
+        </div>
+
+        <!-- Mensagem de Status (Carregamento / Erro) -->
+        <div class="min-h-[20px] mb-4 text-center">
+            <p id="status-message" class="text-blue-600 text-sm font-semibold"></p>
+        </div>
+
+        <!-- Botões de Ação -->
+        <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+            
+            <!-- Botão Gerar Nova Citação -->
+            <button id="generate-button" onclick="generateQuote()" 
+                    class="w-full py-3 px-4 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500/50 transition ease-in-out duration-150">
+                Gerar Citação Personalizada
+            </button>
+            
+            <!-- Botão Copiar -->
+            <button id="copy-button" onclick="copyQuote()" disabled
+                    class="copy-button w-full py-3 px-4 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-500/50 transition ease-in-out duration-150 disabled:opacity-50 disabled:cursor-not-allowed">
+                Copiar Citação
+            </button>
+        </div>
+        
+        <!-- Mensagem de Copiado (Aparece ao clicar em Copiar) -->
+        <p id="copy-message" class="mt-4 text-center text-sm font-semibold text-green-600 opacity-0 transition-opacity duration-300"></p>
+
+    </div>
+
+    <script type="module">
+        // Variáveis globais para configuração da API
+        const apiKey = ""; 
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+
+        // Elementos do DOM
+        const quoteTextElement = document.getElementById('quote-text');
+        const statusMessageElement = document.getElementById('status-message');
+        const generateButton = document.getElementById('generate-button');
+        const copyButton = document.getElementById('copy-button');
+        const copyMessageElement = document.getElementById('copy-message');
+        
+        // Elementos de input
+        const topicInput = document.getElementById('topic-input');
+        const styleInput = document.getElementById('style-input');
+        const iconInput = document.getElementById('icon-input'); // Novo elemento de ícone
+
+
+        // Função para atualizar o status da UI
+        function updateUI(isLoading, message = '') {
+            generateButton.disabled = isLoading;
+            generateButton.textContent = isLoading ? 'Gerando...' : 'Gerar Citação Personalizada';
+            statusMessageElement.textContent = message;
+            
+            // Verifica se a citação não é o placeholder inicial ou uma mensagem de erro
+            const isQuotePresent = quoteTextElement.textContent.trim() !== '' && 
+                                   !quoteTextElement.textContent.includes('Defina sua inspiração') &&
+                                   !quoteTextElement.textContent.includes('Erro') &&
+                                   !quoteTextElement.textContent.includes('vazio');
+            
+            copyButton.disabled = isLoading || !isQuotePresent;
+        }
+
+        // Função para realizar a chamada à API com retries (Backoff Exponencial)
+        async function fetchWithExponentialBackoff(payload, maxRetries = 5) {
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.ok) {
+                        return response.json();
+                    }
+
+                    if (response.status === 429 || response.status >= 500) {
+                        throw new Error(`API error with status ${response.status}. Retrying...`);
+                    } else {
+                        const errorBody = await response.json();
+                        throw new Error(`API failed: ${errorBody.error?.message || response.statusText}`);
+                    }
+                } catch (error) {
+                    if (i === maxRetries - 1) {
+                        throw error;
+                    }
+                    const delay = Math.pow(2, i) * 1000;
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                }
+            }
+        }
+
+        // Função principal para gerar a citação
+        window.generateQuote = async function() {
+            const topic = topicInput.value.trim();
+            const style = styleInput.value;
+            const icon = iconInput.value; // Pega o ícone selecionado
+
+            if (!topic) {
+                updateUI(false, 'Por favor, insira um assunto para a citação.');
+                quoteTextElement.textContent = 'O assunto da citação não pode estar vazio.';
+                return;
+            }
+
+            updateUI(true, `Gerando citação sobre "${topic}" no estilo "${style}"...`);
+            quoteTextElement.textContent = '';
+            copyMessageElement.style.opacity = '0';
+
+            // 1. Cria a instrução do sistema
+            const systemPrompt = `Você é um mentor de vida e filosofia. Sua tarefa é criar uma citação inspiradora única e motivacional, com um toque ${style}. A citação deve ter no máximo duas frases. Formate a saída como um bloco de texto simples, sem aspas, nomes de autor ou qualquer introdução.`;
+            
+            // 2. Cria a consulta do usuário baseada no input
+            const userQuery = `Gere uma citação original sobre o assunto: "${topic}".`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: {
+                    parts: [{ text: systemPrompt }]
+                },
+                config: {
+                    temperature: 0.9,
+                    maxOutputTokens: 100
+                }
+            };
+
+            try {
+                const result = await fetchWithExponentialBackoff(payload);
+                
+                const generatedText = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                
+                if (generatedText) {
+                    // Adiciona o ícone à frente do texto
+                    quoteTextElement.innerHTML = `<span class="text-3xl mr-2">${icon}</span> ${generatedText.trim()}`;
+                    updateUI(false, 'Citação gerada com sucesso!');
+                } else {
+                    quoteTextElement.textContent = 'Erro ao processar a resposta do modelo.';
+                    updateUI(false, 'Houve um erro.');
+                }
+
+            } catch (error) {
+                quoteTextElement.textContent = 'Erro: Falha ao se comunicar com a API.';
+                updateUI(false, 'Verifique sua conexão ou tente novamente.');
+                console.error('API Error:', error);
+            }
+        };
+
+        // Função para copiar a citação para a área de transferência
+        window.copyQuote = function() {
+            // Pega o texto completo (ícone + citação)
+            const icon = iconInput.value;
+            const rawQuoteText = quoteTextElement.textContent.replace(icon, '').trim(); // Remove o ícone para não copiar duas vezes (uma da UI e uma do valor do select)
+            
+            // O texto que será copiado é o ícone + o texto puro da citação
+            const textToCopy = `${icon} ${rawQuoteText}`;
+
+            if (textToCopy && copyButton.disabled === false) {
+                const tempInput = document.createElement('textarea');
+                tempInput.value = textToCopy;
+                document.body.appendChild(tempInput);
+                
+                tempInput.select();
+                tempInput.setSelectionRange(0, 99999);
+                
+                try {
+                    document.execCommand('copy');
+                    
+                    copyMessageElement.textContent = '✅ Copiado para a área de transferência!';
+                    copyMessageElement.style.opacity = '1';
+
+                    setTimeout(() => {
+                        copyMessageElement.style.opacity = '0';
+                    }, 3000);
+
+                } catch (err) {
+                    copyMessageElement.textContent = '❌ Falha ao copiar. Tente selecionar o texto manualmente.';
+                    copyMessageElement.style.opacity = '1';
+                    console.error('Erro ao copiar:', err);
+                }
+
+                document.body.removeChild(tempInput);
+            }
+        };
+
+        // Configuração inicial ao carregar a página
+        window.onload = function() {
+            updateUI(false, 'Pronto para gerar sua citação.');
+        };
+    </script>
+</body>
+</html>
